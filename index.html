@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Learning Hub</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #0a192f;
+      color: #e6f1ff;
+      line-height: 1.6;
+    }
+    
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #64ffda;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #8892b0;
+      margin-bottom: 20px;
+    }
+    
+    nav {
+      background-color: #172a45;
+      padding: 15px 0;
+      margin-bottom: 30px;
+    }
+    
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    
+    nav li {
+      margin: 5px 15px;
+    }
+    
+    nav a {
+      color: #ccd6f6;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover {
+      color: #64ffda;
+    }
+    
+    section {
+      margin-bottom: 50px;
+      background-color: #172a45;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    h2 {
+      color: #64ffda;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #8892b0;
+    }
+    
+    h3 {
+      color: #ccd6f6;
+      margin: 20px 0 10px;
+    }
+    
+    p {
+      margin-bottom: 15px;
+    }
+    
+    .example {
+      background-color: #233554;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px 0;
+      border-left: 4px solid #64ffda;
+    }
+    
+    .example h4 {
+      color: #64ffda;
+      margin-bottom: 10px;
+    }
+    
+    code {
+      background-color: #0a192f;
+      color: #e6f1ff;
+      padding: 15px;
+      border-radius: 5px;
+      display: block;
+      white-space: pre-wrap;
+      margin: 15px 0;
+      overflow-x: auto;
+    }
+    
+    .step {
+      margin-bottom: 15px;
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 35px;
+    }
+    
+    .step:before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: #64ffda;
+      color: #0a192f;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: #8892b0;
+      margin-top: 50px;
+    }
+    
+    .highlight {
+      color: #64ffda;
+      font-weight: 600;
+    }
+    
+    .warning {
+      border-left: 4px solid #ff6464;
+      background-color: rgba(255, 100, 100, 0.1);
+      padding: 15px;
+      margin: 15px 0;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      section {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  
+  <header>
+    <div class="container">
+      <h1>Cybersecurity Learning Hub</h1>
+      <p class="subtitle">Master cybersecurity concepts with detailed explanations and practical examples</p>
+    </div>
+  </header>
+  
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#network-security">Network Security</a></li>
+        <li><a href="#cryptography">Cryptography</a></li>
+        <li><a href="#web-security">Web Security</a></li>
+        <li><a href="#social-engineering">Social Engineering</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <section id="introduction">
+      <h2>Introduction to Cybersecurity</h2>
+      <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These attacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes.</p>
+      
+      <h3>Core Principles of Cybersecurity</h3>
+      <p>Effective cybersecurity follows three fundamental principles, commonly known as the CIA triad:</p>
+      
+      <div class="step">
+        <h4>Confidentiality</h4>
+        <p>This principle ensures that information is accessible only to those authorized to have access. Confidentiality is implemented through encryption, access controls, and authentication mechanisms.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Integrity</h4>
+        <p>This principle maintains and assures the accuracy and completeness of data over its entire lifecycle. Data must not be altered in transit, and steps must be taken to ensure data cannot be altered by unauthorized people.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Availability</h4>
+        <p>This principle ensures that information and resources are available to those who need them when they need them. Systems, networks, and applications must remain functioning despite attacks such as denial-of-service.</p>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Data Breach Analysis</h4>
+        <p>The 2017 Equifax breach exposed personal information of 147 million people. Let's analyze this incident through the CIA triad:</p>
+        <ul>
+          <li><span class="highlight">Confidentiality Failure:</span> Sensitive personal data including Social Security numbers and birth dates were accessed by unauthorized parties.</li>
+          <li><span class="highlight">Integrity Impact:</span> While the attackers primarily exfiltrated data rather than modifying it, the integrity of Equifax's security systems was compromised.</li>
+          <li><span class="highlight">Availability Issue:</span> The breach didn't primarily target availability, but the subsequent remediation efforts and system changes did cause temporary service disruptions.</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Implementing the CIA Triad</h4>
+        <p>Here's how a small business might implement cybersecurity principles:</p>
+        <ul>
+          <li><span class="highlight">Confidentiality Implementation:</span> Using password managers, two-factor authentication, and encryption for customer data.</li>
+          <li><span class="highlight">Integrity Implementation:</span> Regular data backups, file integrity monitoring, and digital signatures for important documents.</li>
+          <li><span class="highlight">Availability Implementation:</span> Redundant internet connections, cloud-based backups, and disaster recovery planning.</li>
+        </ul>
+      </div>
+    </section>
+    
+    <section id="network-security">
+      <h2>Network Security</h2>
+      <p>Network security consists of the policies, practices, and configurations adopted to prevent and monitor unauthorized access, misuse, modification, or denial of computer networks and network-accessible resources.</p>
+      
+      <h3>Understanding Network Attacks</h3>
+      <p>Before learning defensive techniques, it's important to understand how networks are attacked:</p>
+      
+      <div class="step">
+        <h4>Reconnaissance</h4>
+        <p>This is the first phase where attackers gather information about the target network. This includes identifying IP ranges, active hosts, open ports, and running services.</p>
+        <p>Tools like Nmap, Shodan, and passive DNS data are commonly used to build a profile of the target network.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Scanning</h4>
+        <p>After identifying potential targets, attackers perform more detailed scans to find vulnerabilities in the network infrastructure. They look for outdated software, misconfigured services, and known vulnerabilities.</p>
+        <p>Vulnerability scanners like Nessus, OpenVAS, and Qualys are often used during this phase.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Gaining Access</h4>
+        <p>Once vulnerabilities are identified, attackers attempt to exploit them to gain initial access to the network. This could involve exploiting software vulnerabilities, weak passwords, or social engineering.</p>
+        <p>The goal is to establish a foothold within the network for further exploration and exploitation.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Maintaining Access</h4>
+        <p>After gaining initial access, attackers try to establish persistence to ensure they can return even if the initial vulnerability is patched. This might involve creating backdoors, adding new user accounts, or installing remote access tools.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Covering Tracks</h4>
+        <p>Professional attackers will attempt to remove evidence of their presence by clearing logs, removing files used during the attack, and disguising any persistent access methods they've installed.</p>
+      </div>
+      
+      <h3>Network Defense Strategies</h3>
+      
+      <div class="step">
+        <h4>Defense in Depth</h4>
+        <p>This strategy involves implementing multiple layers of security controls throughout the network. If one defense mechanism fails, others are in place to continue protecting the system.</p>
+        <p>Components include firewalls, intrusion detection systems, antivirus, access controls, and encryption.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Network Segmentation</h4>
+        <p>Dividing a network into smaller segments or subnetworks increases security by limiting the damage if a breach occurs. Critical systems and sensitive data should be isolated from general user access.</p>
+        <p>Implement using VLANs, firewalls, and access control lists to restrict traffic between segments.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Regular Updates and Patching</h4>
+        <p>Keeping systems and software up-to-date is one of the most effective security measures. Many successful attacks exploit known vulnerabilities for which patches are already available.</p>
+        <p>Establish a systematic approach to identifying, testing, and deploying security updates.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Monitoring and Incident Response</h4>
+        <p>Continuous monitoring of network traffic and system logs helps detect suspicious activities. Having an incident response plan ready ensures quick and effective response to security breaches.</p>
+        <p>Use security information and event management (SIEM) systems to centralize and analyze logs from across the network.</p>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Firewall Configuration</h4>
+        <p>Here's a basic example of configuring a Linux iptables firewall to protect a web server:</p>
+        <code>
+# Flush existing rules
+iptables -F
+
+# Set default policies
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# Allow established connections
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Allow SSH from trusted IP
+iptables -A INPUT -p tcp -s 192.168.1.100 --dport 22 -j ACCEPT
+
+# Allow HTTP and HTTPS traffic
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Allow loopback traffic
+iptables -A INPUT -i lo -j ACCEPT
+
+# Log and drop other traffic
+iptables -A INPUT -j LOG --log-prefix "DROPPED: "
+iptables -A INPUT -j DROP</code>
+        <p>This configuration:</p>
+        <ul>
+          <li>Drops all incoming traffic by default</li>
+          <li>Allows established connections to continue</li>
+          <li>Restricts SSH access to a specific trusted IP address</li>
+          <li>Allows web traffic (HTTP/HTTPS) from any source</li>
+          <li>Permits loopback interface traffic for local services</li>
+          <li>Logs and then drops all other traffic</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Network Intrusion Detection</h4>
+        <p>This example shows a basic Snort rule to detect potential SQL injection attacks:</p>
+        <code>
+alert tcp any any -> $HTTP_SERVERS $HTTP_PORTS (
+  msg:"SQL Injection Attempt - SELECT FROM";
+  flow:to_server,established;
+  content:"SELECT"; nocase; 
+  content:"FROM"; nocase; distance:0;
+  pcre:"/SELECT.+FROM/i";
+  metadata:service http;
+  classtype:web-application-attack;
+  sid:1000001; rev:1;
+)</code>
+        <p>This Snort rule:</p>
+        <ul>
+          <li>Monitors HTTP traffic directed to web servers</li>
+          <li>Looks for the SQL keywords "SELECT" and "FROM" in the packet payload</li>
+          <li>Uses case-insensitive matching</li>
+          <li>Generates an alert when potential SQL injection is detected</li>
+          <li>Categorizes the event as a web application attack</li>
+        </ul>
+        <p class="warning">Note: This is a simple example rule. In a production environment, you would need more sophisticated rules to reduce false positives while catching actual attacks.</p>
+      </div>
+    </section>
+    
+    <section id="cryptography">
+      <h2>Cryptography</h2>
+      <p>Cryptography is the practice and study of techniques for secure communication in the presence of adversaries. Modern cryptography exists at the intersection of mathematics, computer science, and electrical engineering.</p>
+      
+      <h3>Key Cryptographic Concepts</h3>
+      
+      <div class="step">
+        <h4>Encryption</h4>
+        <p>Encryption is the process of converting plaintext (readable data) into ciphertext (scrambled data) using an algorithm and a key. Only someone with the correct key can decrypt the ciphertext back into the original plaintext.</p>
+        <p>The strength of encryption depends on the algorithm used and the length of the encryption key.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Symmetric vs. Asymmetric Encryption</h4>
+        <p><span class="highlight">Symmetric Encryption:</span> Uses the same key for both encryption and decryption. Examples include AES, DES, and Blowfish. It's fast but requires secure key exchange.</p>
+        <p><span class="highlight">Asymmetric Encryption:</span> Uses a pair of keys - a public key for encryption and a private key for decryption. Examples include RSA, ECC, and DSA. It's slower but solves the key distribution problem.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Hashing</h4>
+        <p>Hashing transforms data of any size into a fixed-size string of characters. Unlike encryption, hashing is a one-way function - you cannot derive the original data from the hash.</p>
+        <p>Hashing is used for password storage, data integrity verification, and digital signatures. Common algorithms include SHA-256, SHA-3, and Blake2.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Digital Signatures</h4>
+        <p>Digital signatures are cryptographic techniques used to validate the authenticity and integrity of a message or document. They provide:</p>
+        <ul>
+          <li><span class="highlight">Authentication:</span> Verification that the message was created by a known sender</li>
+          <li><span class="highlight">Non-repudiation:</span> The sender cannot deny sending the message</li>
+          <li><span class="highlight">Integrity:</span> The message was not altered during transmission</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Public Key Infrastructure (PKI)</h4>
+        <p>PKI is a framework that enables secure electronic transfer of information using public key cryptography. It includes:</p>
+        <ul>
+          <li>Certificate Authorities (CAs) that issue digital certificates</li>
+          <li>Registration Authorities that verify identities</li>
+          <li>Certificate repositories for storing and retrieving certificates</li>
+          <li>Certificate revocation systems</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Basic AES Encryption in Python</h4>
+        <p>This example demonstrates using AES (Advanced Encryption Standard) for symmetric encryption in Python:</p>
+        <code>
+from cryptography.fernet import Fernet
+
+# Generate a key
+key = Fernet.generate_key()
+print(f"Encryption Key: {key.decode()}")
+
+# Create the encryption cipher
+cipher = Fernet(key)
+
+# Original message
+message = "This is a secret message that needs to be encrypted"
+print(f"Original message: {message}")
+
+# Encrypt the message
+encrypted_message = cipher.encrypt(message.encode())
+print(f"Encrypted message: {encrypted_message.decode()}")
+
+# Decrypt the message
+decrypted_message = cipher.decrypt(encrypted_message).decode()
+print(f"Decrypted message: {decrypted_message}")
+
+# Verify the result matches the original
+print(f"Decryption successful: {message == decrypted_message}")
+</code>
+        <p>This code:</p>
+        <ul>
+          <li>Generates a random encryption key</li>
+          <li>Creates a Fernet cipher object (which uses AES-128 in CBC mode with PKCS7 padding)</li>
+          <li>Encrypts a plaintext message</li>
+          <li>Decrypts the ciphertext back to the original message</li>
+          <li>Verifies the decryption was successful</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Implementing Password Hashing</h4>
+        <p>This example shows how to securely hash passwords using bcrypt in Python:</p>
+        <code>
+import bcrypt
+
+def hash_password(password):
+    # Generate a salt and hash the password
+    salt = bcrypt.gensalt(rounds=12)  # Work factor of 2^12
+    hashed = bcrypt.hashpw(password.encode(), salt)
+    return hashed
+
+def verify_password(stored_hash, provided_password):
+    # Check if the provided password matches the stored hash
+    return bcrypt.checkpw(provided_password.encode(), stored_hash)
+
+# Example usage
+user_password = "SecureP@ssword123"
+
+# When a user creates an account or changes password
+stored_hash = hash_password(user_password)
+print(f"Stored password hash: {stored_hash.decode()}")
+
+# When a user attempts to log in
+login_attempt_1 = "SecureP@ssword123"  # Correct password
+login_attempt_2 = "WrongPassword"      # Incorrect password
+
+print(f"Login attempt 1 successful: {verify_password(stored_hash, login_attempt_1)}")
+print(f"Login attempt 2 successful: {verify_password(stored_hash, login_attempt_2)}")
+</code>
+        <p>This implementation:</p>
+        <ul>
+          <li>Uses bcrypt, a password-hashing function designed to be slow and computationally intensive</li>
+          <li>Automatically generates a random salt for each password</li>
+          <li>Stores the salt as part of the hash output</li>
+          <li>Provides a verification function to check login attempts</li>
+          <li>Is resistant to rainbow table attacks and brute force attempts due to the work factor</li>
+        </ul>
+        <p class="warning">Important: Never store passwords in plaintext. Always use a secure, purpose-built password hashing algorithm like bcrypt, Argon2, or PBKDF2.</p>
+      </div>
+    </section>
+    
+    <section id="web-security">
+      <h2>Web Security</h2>
+      <p>Web security focuses on protecting websites, web applications, and web services from security threats that could compromise data, users, or the underlying systems. With the increasing reliance on web-based services, this is one of the most critical areas of cybersecurity.</p>
+      
+      <h3>Common Web Vulnerabilities</h3>
+      
+      <div class="step">
+        <h4>Cross-Site Scripting (XSS)</h4>
+        <p>XSS attacks occur when an attacker injects malicious client-side scripts into web pages viewed by other users. These scripts can steal cookies, session tokens, or other sensitive information.</p>
+        <p>There are three main types of XSS attacks:</p>
+        <ul>
+          <li><span class="highlight">Reflected XSS:</span> Malicious script comes from the current HTTP request</li>
+          <li><span class="highlight">Stored XSS:</span> Malicious script is stored on the target server</li>
+          <li><span class="highlight">DOM-based XSS:</span> Vulnerability exists in client-side code</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>SQL Injection</h4>
+        <p>SQL injection occurs when an attacker is able to insert malicious SQL code into queries that an application sends to its database. This can allow attackers to:</p>
+        <ul>
+          <li>Bypass authentication</li>
+          <li>Access, modify, or delete data</li>
+          <li>Execute administrative operations on the database</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Cross-Site Request Forgery (CSRF)</h4>
+        <p>CSRF attacks trick users into performing actions they didn't intend to on a web application in which they're currently authenticated. The attacker creates a malicious website, email, or message that contains a request to the vulnerable site.</p>
+        <p>When a logged-in user visits the malicious content, their browser automatically sends the request along with their authentication cookies.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Insecure Direct Object References (IDOR)</h4>
+        <p>IDOR vulnerabilities occur when an application provides direct access to objects based on user-supplied input. This can lead to unauthorized access to resources if proper access control checks are not implemented.</p>
+        <p>For example, changing a parameter in a URL from "account_details?id=123" to "account_details?id=124" might allow access to another user's account.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Security Misconfigurations</h4>
+        <p>These include:</p>
+        <ul>
+          <li>Default installations without security hardening</li>
+          <li>Incomplete or ad hoc configurations</li>
+          <li>Open cloud storage</li>
+          <li>Error messages containing sensitive information</li>
+          <li>Missing security headers</li>
+        </ul>
+      </div>
+      
+      <h3>Defensive Strategies</h3>
+      
+      <div class="step">
+        <h4>Input Validation</h4>
+        <p>All user input should be validated on both the client and server side. Input should be:</p>
+        <ul>
+          <li>Checked for type (string, integer, etc.)</li>
+          <li>Validated for appropriate length</li>
+          <li>Checked against a whitelist of allowed characters or values</li>
+          <li>Sanitized to remove potentially dangerous content</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Output Encoding</h4>
+        <p>Data output to web pages should be properly encoded to prevent it from being interpreted as active content. Different contexts require different encoding methods:</p>
+        <ul>
+          <li>HTML encoding for content inside HTML elements</li>
+          <li>Attribute encoding for HTML attribute values</li>
+          <li>JavaScript encoding for data used in JavaScript</li>
+          <li>URL encoding for parameters in URLs</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Parameterized Queries</h4>
+        <p>To prevent SQL injection, use prepared statements or parameterized queries that separate SQL code from data. This ensures user input is never interpreted as part of the SQL command.</p>
+      </div>
+      
+      <div class="step">
+        <h4>Security Headers</h4>
+        <p>Implement HTTP security headers such as:</p>
+        <ul>
+          <li>Content-Security-Policy (CSP)</li>
+          <li>X-XSS-Protection</li>
+          <li>X-Content-Type-Options</li>
+          <li>Strict-Transport-Security (HSTS)</li>
+          <li>X-Frame-Options</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Preventing SQL Injection</h4>
+        <p>Vulnerable code vs. secure code using parameterized queries in PHP:</p>
+        <code>
+// VULNERABLE CODE - DON'T USE THIS
+// User input is directly concatenated into the SQL query
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+$query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+$result = mysqli_query($connection, $query);
+
+// SECURE CODE - USE THIS INSTEAD
+// Prepared statement with parameter binding
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+// Prepare the statement
+$stmt = $connection->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+
+// Bind parameters
+$stmt->bind_param("ss", $username, $password);
+
+// Execute the query
+$stmt->execute();
+
+// Get the result
+$result = $stmt->get_result();</code>
+        <p>Key security improvements:</p>
+        <ul>
+          <li>Parameters are sent to the database separately from the SQL command</li>
+          <li>The database treats parameters as data values, not executable code</li>
+          <li>Even if user input contains SQL syntax, it cannot change the query's structure</li>
+          <li>The prepare-bind-execute pattern works in most modern programming languages</li>
+        </ul>
+        <p class="warning">Note: This example demonstrates SQL injection protection only. In a real application, passwords should be hashed, not stored or compared in plaintext.</p>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Implementing Content Security Policy</h4>
+        <p>This example shows how to implement a Content Security Policy to mitigate XSS attacks:</p>
+        <code>
+// In PHP, you can set the CSP header like this:
+header("Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-cdn.com; style-src 'self' https://trusted-styles.com; img-src 'self' data: https://*; connect-src 'self'");
+
+// Or in an Apache .htaccess file:
+&lt;IfModule mod_headers.c&gt;
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://trusted-cdn.com; style-src 'self' https://trusted-styles.com; img-src 'self' data: https://*; connect-src 'self'"
+&lt;/IfModule&gt;
+
+// Or in Nginx configuration:
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' https://trusted-cdn.com; style-src 'self' https://trusted-styles.com; img-src 'self' data: https://*; connect-src 'self'";
+
+// In an HTML file using a meta tag:
+&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusted-cdn.com; style-src 'self' https://trusted-styles.com; img-src 'self' data: https://*; connect-src 'self'"&gt;</code>
+        <p>This Content Security Policy:</p>
+        <ul>
+          <li>Sets the default policy to only allow resources from the same origin ('self')</li>
+          <li>Allows JavaScript files only from the same origin and a specific trusted CDN</li>
+          <li>Allows CSS only from the same origin and a specific trusted source</li>
+          <li>Allows images from the same origin, data URIs, and any HTTPS source</li>
+          <li>Restricts AJAX/fetch connections to the same origin</li>
+        </ul>
+        <p>The CSP provides an additional layer of defense against XSS attacks by controlling which resources can be loaded and executed on your page.</p>
+      </div>
+    </section>
+    
+    <section id="social-engineering">
+      <h2>Social Engineering</h2>
+      <p>Social engineering is the psychological manipulation of people into performing actions or divulging confidential information. Unlike technical hacking, social engineering relies on human interaction and often involves tricking people into breaking normal security procedures.</p>
+      
+      <h3>Common Social Engineering Techniques</h3>
+      
+      <div class="step">
+        <h4>Phishing</h4>
+        <p>Phishing involves sending fraudulent communications that appear to come from a reputable source, usually through email. The goal is to steal sensitive data like login credentials and credit card details, or to install malware on the victim's machine.</p>
+        <p>Variants include:</p>
+        <ul>
+          <li><span class="highlight">Spear phishing:</span> Targeted attacks directed at specific individuals or companies</li>
+          <li><span class="highlight">Whaling:</span> Phishing attacks targeting high-value individuals like C-level executives</li>
+          <li><span class="highlight">Vishing:</span> Voice phishing using phone calls</li>
+          <li><span class="highlight">Smishing:</span> SMS phishing using text messages</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Pretexting</h4>
+        <p>Pretexting involves creating a fabricated scenario (a pretext) to engage a victim and gain their trust. The attacker usually impersonates someone with authority or a trusted entity to extract information or influence behavior.</p>
+        <p>Common pretexting scenarios include:</p>
+        <ul>
+          <li>Impersonating IT support staff to gain system access</li>
+          <li>Posing as bank officials to get financial information</li>
+          <li>Pretending to be HR representatives to obtain employee data</li>
+          <li>Acting as delivery personnel to gain physical access to facilities</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Baiting</h4>
+        <p>Baiting is like a real-world Trojan Horse that uses physical media and relies on the victim's curiosity or greed. Examples include:</p>
+        <ul>
+          <li>Leaving infected USB drives in public places</li>
+          <li>Offering free movie downloads that contain malware</li>
+          <li>Advertising fake software updates</li>
+          <li>Offering too-good-to-be-true prizes or rewards</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Quid Pro Quo</h4>
+        <p>These attacks promise a benefit in exchange for information or action. Unlike baiting, which relies on curiosity or greed, quid pro quo attacks offer a service or benefit in exchange for the target's cooperation.</p>
+        <p>Common examples include:</p>
+        <ul>
+          <li>An attacker calling employees offering IT assistance in exchange for login credentials</li>
+          <li>Offering a free security check that actually installs malware</li>
+          <li>Providing a fake discount or reward that requires personal information</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Tailgating/Piggybacking</h4>
+        <p>This physical social engineering technique involves following an authorized person into a secured area. The attacker might:</p>
+        <ul>
+          <li>Pretend to have forgotten their access card</li>
+          <li>Carry too many items to conveniently open doors themselves</li>
+          <li>Pose as a delivery person or maintenance worker</li>
+          <li>Simply engage in friendly conversation while walking through secured entrances</li>
+        </ul>
+      </div>
+      
+      <h3>Defense Against Social Engineering</h3>
+      
+      <div class="step">
+        <h4>Security Awareness Training</h4>
+        <p>Regular training helps employees recognize and respond appropriately to social engineering attempts. Training should:</p>
+        <ul>
+          <li>Include practical examples and simulations</li>
+          <li>Be updated regularly to cover new attack methods</li>
+          <li>Address organization-specific risks</li>
+          <li>Be engaging and accessible to all staff, not just technical teams</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Establish Clear Security Procedures</h4>
+        <p>Organizations should have well-defined procedures for:</p>
+        <ul>
+          <li>Verifying identities before sharing sensitive information</li>
+          <li>Reporting suspicious communications or activities</li>
+          <li>Handling sensitive data requests</li>
+          <li>Granting access to physical areas and systems</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Implement Technical Controls</h4>
+        <p>Technical safeguards to support human vigilance include:</p>
+        <ul>
+          <li>Email filtering solutions to detect phishing attempts</li>
+          <li>Multi-factor authentication to prevent credential misuse</li>
+          <li>Data loss prevention tools to monitor for unusual data access</li>
+          <li>Security systems for physical access control</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Foster a Security Culture</h4>
+        <p>Create an environment where:</p>
+        <ul>
+          <li>Security concerns are taken seriously and addressed promptly</li>
+          <li>Employees feel comfortable reporting suspicious activities</li>
+          <li>Security is seen as everyone's responsibility, not just IT's</li>
+          <li>There's no punishment for reporting false positives</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Analyzing a Phishing Email</h4>
+        <p>Here's an example of a phishing email with red flags highlighted:</p>
+        <code>
+From: paypal-security@secure-paypal.com
+Subject: [URGENT] Your PayPal account has been limited
+
+Dear Valued Customer,
+
+We have detected unusual activity on your PayPal account. Your account access has been limited until you verify your information.
+
+You must complete the verification process within 24 hours or your account will be permanently suspended.
+
+Click here to verify your account: http://paypal-secure-verification.tk/login.php
+
+Thank you for your prompt attention to this matter.
+
+PayPal Security Team
+PayPal Inc.
+2211 North First Street
+San Jose, CA 95131
+</code>
+        <p>Red flags in this phishing email:</p>
+        <ul>
+          <li><span class="highlight">Suspicious sender address:</span> "secure-paypal.com" instead of "paypal.com"</li>
+          <li><span class="highlight">Creating urgency:</span> The "urgent" subject and 24-hour deadline pressure you to act quickly without thinking</li>
+          <li><span class="highlight">Generic greeting:</span> "Valued Customer" instead of your name</li>
+          <li><span class="highlight">Suspicious link:</span> The URL uses a suspicious domain (.tk) and doesn't point to PayPal's official website</li>
+          <li><span class="highlight">Threat of negative consequences:</span> Account suspension is threatened to scare you into action</li>
+          <li><span class="highlight">Grammatical issues:</span> While this example is fairly well-written, many phishing emails contain grammar or spelling errors</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Creating a Security Awareness Program</h4>
+        <p>Here's a framework for implementing a basic security awareness program in an organization:</p>
+        <ol>
+          <li><span class="highlight">Assess current awareness levels:</span>
+            <ul>
+              <li>Conduct a baseline phishing simulation</li>
+              <li>Survey employees about security practices</li>
+              <li>Review past security incidents</li>
+            </ul>
+          </li>
+          <li><span class="highlight">Develop tailored training materials:</span>
+            <ul>
+              <li>Create role-specific training modules</li>
+              <li>Develop short, engaging videos</li>
+              <li>Design infographics for common areas</li>
+              <li>Create a security handbook with clear guidelines</li>
+            </ul>
+          </li>
+          <li><span class="highlight">Implement regular training:</span>
+            <ul>
+              <li>Mandatory quarterly security awareness sessions</li>
+              <li>Monthly security newsletter</li>
+              <li>Regular phishing simulations with feedback</li>
+              <li>New employee security onboarding</li>
+            </ul>
+          </li>
+          <li><span class="highlight">Reinforce through practice:</span>
+            <ul>
+              <li>Monthly simulated social engineering attempts</li>
+              <li>Security awareness challenges with rewards</li>
+              <li>Tabletop exercises for incident response</li>
+              <li>Security "brown bag" lunch discussions</li>
+            </ul>
+          </li>
+          <li><span class="highlight">Measure and improve:</span>
+            <ul>
+              <li>Track phishing simulation click rates</li>
+              <li>Monitor reporting of suspicious activities</li>
+              <li>Gather feedback on training effectiveness</li>
+              <li>Adjust training based on emerging threats</li>
+            </ul>
+          </li>
+        </ol>
+        <p>Key success factors:</p>
+        <ul>
+          <li>Executive support and participation</li>
+          <li>Making training engaging rather than punitive</li>
+          <li>Consistent reinforcement of security concepts</li>
+          <li>Celebrating security "wins" and positive behaviors</li>
+        </ul>
+      </div>
+    </section>
+    
+    <footer>
+      <div class="container">
+        <p>Cybersecurity Learning Hub - Educational resource for understanding security principles and best practices</p>
+        <p>&copy; 2025 - All information provided is for educational purposes only</p>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Particles.js for background animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#64ffda"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": true,
+            "anim": {
+              "enable": true,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#8892b0",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 2,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      });
+    });
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
