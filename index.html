@@ -195,6 +195,8 @@
         <li><a href="#cryptography">Cryptography</a></li>
         <li><a href="#web-security">Web Security</a></li>
         <li><a href="#social-engineering">Social Engineering</a></li>
+        <li><a href="#malware-analysis">Malware Analysis</a></li>
+        <li><a href="#cloud-security">Cloud Security</a></li>
       </ul>
     </div>
   </nav>
@@ -848,6 +850,687 @@ San Jose, CA 95131
         </ul>
       </div>
     </section>
+    <section id="malware-analysis">
+      <h2>Malware Analysis</h2>
+      <p>Malware analysis is the process of studying the components, behavior, origin, and potential impact of malicious software. This discipline is essential for understanding threats, developing effective defenses, and responding to security incidents.</p>
+      
+      <h3>Types of Malware Analysis</h3>
+      
+      <div class="step">
+        <h4>Static Analysis</h4>
+        <p>Static analysis examines malware without executing it. This approach is safer as it doesn't risk the malware performing harmful actions. Static analysis techniques include:</p>
+        <ul>
+          <li>File format analysis to understand the structure of the malicious file</li>
+          <li>String extraction to identify embedded text, URLs, IP addresses, or commands</li>
+          <li>Disassembly to convert machine code into human-readable assembly instructions</li>
+          <li>Identifying cryptographic hashes to compare with known malware databases</li>
+          <li>Analyzing metadata such as compilation timestamps and library dependencies</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Dynamic Analysis</h4>
+        <p>Dynamic analysis involves executing malware in a controlled environment to observe its behavior. This provides insights that static analysis might miss, especially with obfuscated or encrypted malware. Key components include:</p>
+        <ul>
+          <li>Sandboxed execution environments isolated from production systems</li>
+          <li>Monitoring system calls and API interactions</li>
+          <li>Network traffic analysis to identify command and control communications</li>
+          <li>Registry and file system monitoring to track changes</li>
+          <li>Memory analysis to detect techniques like process injection</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Code Analysis</h4>
+        <p>This deeper analysis examines the malware's source code or decompiled representation to understand its functionality in detail. Techniques include:</p>
+        <ul>
+          <li>Reverse engineering to recover higher-level code from compiled binaries</li>
+          <li>Control flow analysis to map the program's execution paths</li>
+          <li>Identifying cryptographic operations and algorithms</li>
+          <li>Recognizing obfuscation techniques designed to hinder analysis</li>
+          <li>Understanding evasion mechanisms targeting security tools</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Automated Analysis</h4>
+        <p>Automated tools can accelerate the analysis process, especially for high volumes of potential malware samples. These systems typically:</p>
+        <ul>
+          <li>Perform initial triage to prioritize samples for further analysis</li>
+          <li>Extract indicators of compromise (IOCs) for defensive systems</li>
+          <li>Generate initial reports on the malware's capabilities and behavior</li>
+          <li>Compare samples against known malware families and techniques</li>
+          <li>Scale analysis capabilities across thousands of samples</li>
+        </ul>
+      </div>
+      
+      <h3>Malware Types and Characteristics</h3>
+      
+      <div class="step">
+        <h4>Viruses</h4>
+        <p>Computer viruses attach themselves to legitimate programs and replicate when the infected program runs. Key characteristics include:</p>
+        <ul>
+          <li>Require user action to spread (opening a file or running a program)</li>
+          <li>Self-replication capabilities to infect other files</li>
+          <li>Often use file infection, boot sector manipulation, or macro embedding</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Trojans</h4>
+        <p>Trojans disguise themselves as legitimate software to trick users into installing them. Unlike viruses, they don't self-replicate but often serve as:</p>
+        <ul>
+          <li>Backdoors providing remote access to attackers</li>
+          <li>Data theft tools that exfiltrate sensitive information</li>
+          <li>Downloaders that install additional malware</li>
+          <li>Banking trojans specifically targeting financial credentials</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Ransomware</h4>
+        <p>Ransomware encrypts victim data and demands payment for decryption. Modern ransomware operations often involve:</p>
+        <ul>
+          <li>Data exfiltration before encryption (double extortion)</li>
+          <li>Targeting backup systems to prevent recovery</li>
+          <li>Sophisticated encryption using strong algorithms</li>
+          <li>Cryptocurrency payment demands to maintain anonymity</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Advanced Persistent Threats (APTs)</h4>
+        <p>APTs are sophisticated, long-term attacks typically conducted by nation-states or well-funded groups. They employ:</p>
+        <ul>
+          <li>Custom malware designed for specific targets</li>
+          <li>Multiple attack vectors and persistence mechanisms</li>
+          <li>Stealth techniques to avoid detection</li>
+          <li>Patience and long-term strategic objectives</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Basic Static Analysis with Python</h4>
+        <p>This example demonstrates how to perform a basic static analysis of a potentially malicious file:</p>
+        <code>
+    import hashlib
+    import pefile
+    import os
+    import re
+    
+    def analyze_file(file_path):
+        """Perform basic static analysis on a file."""
+        results = {
+            'file_name': os.path.basename(file_path),
+            'file_size': os.path.getsize(file_path),
+            'file_type': None,
+            'md5': None,
+            'sha256': None,
+            'strings': [],
+            'pe_info': None
+        }
+        
+        # Calculate file hashes
+        with open(file_path, 'rb') as f:
+            content = f.read()
+            results['md5'] = hashlib.md5(content).hexdigest()
+            results['sha256'] = hashlib.sha256(content).hexdigest()
+        
+        # Try to identify file type based on magic bytes
+        with open(file_path, 'rb') as f:
+            header = f.read(16)
+            if header.startswith(b'MZ'):
+                results['file_type'] = 'PE Executable'
+            elif header.startswith(b'%PDF'):
+                results['file_type'] = 'PDF Document'
+            elif b'PK\x03\x04' in header:
+                results['file_type'] = 'ZIP Archive'
+            else:
+                results['file_type'] = 'Unknown'
+        
+        # Extract interesting strings (URLs, IPs, etc.)
+        with open(file_path, 'rb') as f:
+            content = f.read()
+            
+            # Find ASCII strings (at least 4 characters)
+            ascii_strings = re.findall(b'[\x20-\x7E]{4,}', content)
+            
+            # Look for URLs
+            url_pattern = re.compile(b'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+')
+            urls = url_pattern.findall(content)
+            
+            # Look for IP addresses
+            ip_pattern = re.compile(b'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
+            ips = ip_pattern.findall(content)
+            
+            results['strings'] = {
+                'ascii': [s.decode('ascii', errors='ignore') for s in ascii_strings[:50]],
+                'urls': [u.decode('ascii', errors='ignore') for u in urls],
+                'ips': [i.decode('ascii', errors='ignore') for i in ips]
+            }
+        
+        # If it's a PE file, extract additional information
+        if results['file_type'] == 'PE Executable':
+            try:
+                pe = pefile.PE(file_path)
+                
+                results['pe_info'] = {
+                    'compile_time': pe.FILE_HEADER.TimeDateStamp,
+                    'imports': {},
+                    'sections': []
+                }
+                
+                # Get imported functions
+                if hasattr(pe, 'DIRECTORY_ENTRY_IMPORT'):
+                    for entry in pe.DIRECTORY_ENTRY_IMPORT:
+                        dll_name = entry.dll.decode('ascii', errors='ignore')
+                        results['pe_info']['imports'][dll_name] = []
+                        for imp in entry.imports:
+                            if imp.name:
+                                results['pe_info']['imports'][dll_name].append(
+                                    imp.name.decode('ascii', errors='ignore')
+                                )
+                
+                # Get section information
+                for section in pe.sections:
+                    section_name = section.Name.decode('ascii', errors='ignore').strip('\x00')
+                    results['pe_info']['sections'].append({
+                        'name': section_name,
+                        'size': section.SizeOfRawData,
+                        'entropy': section.get_entropy()
+                    })
+                    
+            except Exception as e:
+                results['pe_info'] = f"Error analyzing PE file: {str(e)}"
+        
+        return results
+    
+    # Example usage
+    if __name__ == "__main__":
+        suspicious_file = "path/to/suspicious_file.exe"
+        analysis_results = analyze_file(suspicious_file)
+        
+        print(f"File: {analysis_results['file_name']}")
+        print(f"Type: {analysis_results['file_type']}")
+        print(f"Size: {analysis_results['file_size']} bytes")
+        print(f"MD5: {analysis_results['md5']}")
+        print(f"SHA256: {analysis_results['sha256']}")
+        
+        if analysis_results['pe_info'] and isinstance(analysis_results['pe_info'], dict):
+            print("\nPE Information:")
+            print(f"Compiled: {analysis_results['pe_info']['compile_time']}")
+            
+            print("\nImported DLLs and Functions:")
+            for dll, functions in analysis_results['pe_info']['imports'].items():
+                print(f"  {dll}:")
+                for func in functions[:5]:  # Show first 5 functions only
+                    print(f"    - {func}")
+                if len(functions) > 5:
+                    print(f"    - ... and {len(functions) - 5} more")
+            
+            print("\nFile Sections:")
+            for section in analysis_results['pe_info']['sections']:
+                print(f"  {section['name']} - Size: {section['size']} bytes, Entropy: {section['entropy']:.2f}")
+                # High entropy (>7.0) often indicates encryption or packing
+        
+        print("\nDetected URLs:")
+        for url in analysis_results['strings']['urls']:
+            print(f"  {url}")
+        
+        print("\nDetected IP addresses:")
+        for ip in analysis_results['strings']['ips']:
+            print(f"  {ip}")
+    </code>
+        <p>This script provides:</p>
+        <ul>
+          <li>File identification and metadata extraction</li>
+          <li>Cryptographic hash calculation for sample comparison</li>
+          <li>String extraction to identify potential command and control servers</li>
+          <li>PE file analysis for executables (imports, sections, compile time)</li>
+          <li>Section entropy calculation to detect packers or encryption</li>
+        </ul>
+        <p class="warning">Note: This is a basic analysis tool intended for educational purposes. Real-world malware analysis requires isolated environments and additional precautions to prevent accidental execution.</p>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Setting Up a Safe Analysis Environment</h4>
+        <p>This example outlines how to create a basic malware analysis environment using virtualization:</p>
+        
+        <code>
+    # This is not a script but a procedure guide
+    
+    #### 1. Create an isolated virtual network ####
+    # In VirtualBox:
+    # - Open VirtualBox settings
+    # - Go to Network > Create a new NAT Network
+    # - Disable DHCP (we'll use static IPs)
+    # - Note the network CIDR (e.g., 10.0.2.0/24)
+    
+    #### 2. Set up analysis VM configuration ####
+    # - Create a new VM with:
+    #   - 2-4 GB RAM
+    #   - 50GB virtual hard disk
+    #   - No shared folders
+    #   - No clipboard sharing
+    #   - No drag and drop
+    #   - Network adapter attached to the NAT Network created earlier
+    #   - No USB devices
+    
+    #### 3. Install OS and baseline tools ####
+    # - Install Windows (consider Windows 10 for compatibility with modern malware)
+    # - Disable automatic updates
+    # - Disable Windows Defender and other security features
+    # - Create a non-admin user for regular analysis
+    # - Take a clean snapshot before installing tools
+    
+    #### 4. Install analysis tools ####
+    # - Process monitoring: Process Explorer, Process Monitor
+    # - Network monitoring: Wireshark, INetSim (on a separate VM)
+    # - Debugging: x64dbg, OllyDbg, WinDbg
+    # - Static analysis: PE Explorer, Resource Hacker, Ghidra
+    # - Dynamic analysis: Regshot for registry comparison
+    # - Take a new snapshot with tools installed
+    
+    #### 5. Configure inetsim on a separate Linux VM ####
+    # - Create a Ubuntu Server VM on the same isolated network
+    # - Install inetsim:
+    sudo apt update
+    sudo apt install inetsim
+    
+    # - Configure to listen on all interfaces:
+    sudo nano /etc/inetsim/inetsim.conf
+    # Uncomment and change: service_bind_address 0.0.0.0
+    
+    # - Set a static IP (e.g., 10.0.2.5)
+    # - Start the service:
+    sudo inetsim
+    
+    #### 6. Configure the analysis VM networking ####
+    # - Set a static IP (e.g., 10.0.2.10)
+    # - Set DNS server to the INetSim VM IP (10.0.2.5)
+    # - Configure hosts file to redirect domains to INetSim:
+    echo "10.0.2.5 www.google.com" >> C:\Windows\System32\drivers\etc\hosts
+    echo "10.0.2.5 www.microsoft.com" >> C:\Windows\System32\drivers\etc\hosts
+    # (Add more common domains as needed)
+    
+    #### 7. Pre-analysis checklist ####
+    # 1. Take a VM snapshot before analyzing each sample
+    # 2. Start monitoring tools before executing the sample
+    # 3. Document initial observations and hypothesis
+    # 4. Execute the sample with appropriate privileges
+    # 5. Collect and document observed behaviors
+    # 6. After analysis, revert to clean snapshot
+    
+    #### 8. Safe sample handling procedure ####
+    # 1. Receive samples in password-protected archives
+    # 2. Use SCP or other secure method to transfer to analysis VM
+    # 3. Keep samples in a dedicated directory
+    # 4. Use caution when handling certain file types (macros, scripts)
+    # 5. Never execute samples on production machines
+    </code>
+        <p>This procedure guide provides:</p>
+        <ul>
+          <li>Instructions for creating an isolated virtualized environment</li>
+          <li>VM configuration best practices to prevent malware escape</li>
+          <li>Network simulation setup to safely observe malware communications</li>
+          <li>Tool recommendations for effective analysis</li>
+          <li>Safety protocols to minimize risk during analysis</li>
+        </ul>
+        <p>Following these steps creates a basic but effective environment for safely analyzing malware samples without risking production systems.</p>
+      </div>
+    </section>
+    
+    <section id="cloud-security">
+      <h2>Cloud Security</h2>
+      <p>Cloud security encompasses the technologies, policies, controls, and services that protect cloud data, applications, and infrastructure from threats. As organizations increasingly migrate to cloud environments, understanding cloud-specific security challenges and solutions is essential.</p>
+      
+      <h3>Cloud Security Fundamentals</h3>
+      
+      <div class="step">
+        <h4>Shared Responsibility Model</h4>
+        <p>Cloud security operates on a shared responsibility model, where security duties are divided between the cloud provider and the customer:</p>
+        <ul>
+          <li><span class="highlight">Provider responsibilities</span> typically include physical security, infrastructure, and host operating systems</li>
+          <li><span class="highlight">Customer responsibilities</span> generally include data, access management, network controls, and application security</li>
+          <li>The exact division varies by service model (IaaS, PaaS, SaaS)</li>
+          <li>Understanding this model is critical to ensuring no security gaps exist</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Cloud Service Models and Security Implications</h4>
+        <p>Different cloud service models place different security responsibilities on customers:</p>
+        <ul>
+          <li><span class="highlight">Infrastructure as a Service (IaaS):</span> Customers are responsible for securing operating systems, applications, data, and most network controls</li>
+          <li><span class="highlight">Platform as a Service (PaaS):</span> Customers focus on application security and data, while the provider handles the underlying infrastructure</li>
+          <li><span class="highlight">Software as a Service (SaaS):</span> Customers primarily manage data and access controls, with most security handled by the provider</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Cloud Deployment Models</h4>
+        <p>The chosen deployment model affects security considerations:</p>
+        <ul>
+          <li><span class="highlight">Public Cloud:</span> Resources are owned and operated by third-party providers and shared across multiple organizations</li>
+          <li><span class="highlight">Private Cloud:</span> Infrastructure is dedicated to a single organization, offering greater control but requiring more security management</li>
+          <li><span class="highlight">Hybrid Cloud:</span> Combines public and private clouds, requiring secure integration and consistent policies across environments</li>
+          <li><span class="highlight">Multi-Cloud:</span> Uses services from multiple cloud providers, increasing complexity but reducing vendor lock-in</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Key Cloud Security Challenges</h4>
+        <p>Cloud environments face unique security challenges:</p>
+        <ul>
+          <li>Misconfigured access controls and excessive permissions</li>
+          <li>Data residency and compliance requirements across jurisdictions</li>
+          <li>Shadow IT and unauthorized cloud service usage</li>
+          <li>Lack of visibility into cloud infrastructure and operations</li>
+          <li>API security and inter-service communications</li>
+          <li>Container and serverless security considerations</li>
+        </ul>
+      </div>
+      
+      <h3>Essential Cloud Security Controls</h3>
+      
+      <div class="step">
+        <h4>Identity and Access Management (IAM)</h4>
+        <p>IAM is the foundation of cloud security, controlling who can access resources and what they can do:</p>
+        <ul>
+          <li>Implement the principle of least privilege, granting only necessary permissions</li>
+          <li>Use role-based access control (RBAC) to simplify permission management</li>
+          <li>Enable multi-factor authentication for all user accounts</li>
+          <li>Regularly audit and rotate access keys and credentials</li>
+          <li>Implement just-in-time access for privileged operations</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Data Protection</h4>
+        <p>Protecting data is critical in cloud environments:</p>
+        <ul>
+          <li>Encrypt data both in transit and at rest</li>
+          <li>Implement proper key management with regular rotation</li>
+          <li>Use secure APIs and encrypted communications</li>
+          <li>Apply data loss prevention (DLP) controls</li>
+          <li>Establish data classification and handling procedures</li>
+          <li>Implement backup and recovery mechanisms</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Network Security</h4>
+        <p>Cloud networks require specific security approaches:</p>
+        <ul>
+          <li>Implement virtual private clouds (VPCs) with proper segmentation</li>
+          <li>Configure security groups and network ACLs</li>
+          <li>Use private endpoints for service connections where possible</li>
+          <li>Implement web application firewalls for internet-facing applications</li>
+          <li>Enable DDoS protection services</li>
+          <li>Monitor and filter traffic between cloud components</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h4>Compliance and Governance</h4>
+        <p>Maintaining compliance in the cloud requires:</p>
+        <ul>
+          <li>Understanding which regulations apply to your data and workloads</li>
+          <li>Implementing continuous compliance monitoring</li>
+          <li>Maintaining detailed audit logs and reports</li>
+          <li>Using cloud-native compliance tools and services</li>
+          <li>Regularly testing security controls and performing risk assessments</li>
+          <li>Documenting security processes and responsibilities</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 1: Securing AWS S3 Buckets</h4>
+        <p>Amazon S3 buckets are frequently misconfigured, leading to data breaches. Here's how to secure them:</p>
+        <code>
+    # AWS CLI commands to secure an S3 bucket
+    
+    # 1. Block all public access at the bucket level
+    aws s3api put-public-access-block \
+        --bucket my-sensitive-data \
+        --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+    
+    # 2. Enable server-side encryption by default
+    aws s3api put-bucket-encryption \
+        --bucket my-sensitive-data \
+        --server-side-encryption-configuration '{
+          "Rules": [
+            {
+              "ApplyServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              },
+              "BucketKeyEnabled": true
+            }
+          ]
+        }'
+    
+    # 3. Enable versioning to protect against accidental deletion
+    aws s3api put-bucket-versioning \
+        --bucket my-sensitive-data \
+        --versioning-configuration Status=Enabled
+    
+    # 4. Enable access logging
+    aws s3api put-bucket-logging \
+        --bucket my-sensitive-data \
+        --bucket-logging-status '{
+          "LoggingEnabled": {
+            "TargetBucket": "my-log-bucket",
+            "TargetPrefix": "my-sensitive-data-logs/"
+          }
+        }'
+    
+    # 5. Create a restrictive bucket policy
+    aws s3api put-bucket-policy \
+        --bucket my-sensitive-data \
+        --policy '{
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "AllowSSLRequestsOnly",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::my-sensitive-data",
+                "arn:aws:s3:::my-sensitive-data/*"
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false"
+                }
+              }
+            },
+            {
+              "Sid": "AllowSpecificRoleOnly",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/AuthorizedS3Role"
+              },
+              "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:ListBucket"
+              ],
+              "Resource": [
+                "arn:aws:s3:::my-sensitive-data",
+                "arn:aws:s3:::my-sensitive-data/*"
+              ]
+            }
+          ]
+        }'
+    
+    # 6. Enable event notifications for security-relevant events
+    aws s3api put-bucket-notification-configuration \
+        --bucket my-sensitive-data \
+        --notification-configuration '{
+          "TopicConfigurations": [
+            {
+              "TopicArn": "arn:aws:sns:us-east-1:123456789012:S3SecurityNotifications",
+              "Events": ["s3:ObjectRemoved:*", "s3:ObjectAcl:Put"]
+            }
+          ]
+        }'
+    
+    # 7. Enable S3 Object Lock for critical data (requires versioning)
+    aws s3api put-object-lock-configuration \
+        --bucket my-sensitive-data \
+        --object-lock-configuration '{
+          "ObjectLockEnabled": "Enabled",
+          "Rule": {
+            "DefaultRetention": {
+              "Mode": "COMPLIANCE",
+              "Days": 30
+            }
+          }
+        }'
+    </code>
+        <p>Key security controls implemented:</p>
+        <ul>
+          <li>Block all public access to prevent unintended exposure</li>
+          <li>Enable default encryption for all objects</li>
+          <li>Enable versioning to protect against deletion and tampering</li>
+          <li>Configure access logging for security monitoring</li>
+          <li>Implement a restrictive bucket policy enforcing HTTPS and specific IAM roles</li>
+          <li>Set up notifications for security-relevant events</li>
+          <li>Configure Object Lock for critical data requiring immutability</li>
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h4>Example 2: Implementing Azure Security Center Recommendations</h4>
+        <p>This example shows how to address common Azure Security Center recommendations using Azure CLI:</p>
+        <code>
+    #!/bin/bash
+    
+    # 1. Enable Azure Defender for all subscriptions
+    echo "Enabling Azure Defender..."
+    az security pricing create -n VirtualMachines --tier "Standard"
+    az security pricing create -n SqlServers --tier "Standard"
+    az security pricing create -n AppServices --tier "Standard"
+    az security pricing create -n StorageAccounts --tier "Standard"
+    az security pricing create -n KeyVaults --tier "Standard"
+    az security pricing create -n KubernetesService --tier "Standard"
+    az security pricing create -n ContainerRegistry --tier "Standard"
+    
+    # 2. Configure automatic provisioning of the Log Analytics agent
+    echo "Configuring automatic agent provisioning..."
+    az security auto-provisioning-setting update --name "default" --auto-provision "On"
+    
+    # 3. Set up continuous export to Log Analytics
+    echo "Setting up continuous export of security alerts and recommendations..."
+    WORKSPACE_ID=$(az monitor log-analytics workspace show --resource-group "SecurityMonitoring" --workspace-name "SecurityWorkspace" --query "id" -o tsv)
+    
+    az security data-export create \
+      --name "SecurityDataExport" \
+      --export-data-types "Alerts SecurityRecommendations" \
+      --target-resource-type "Microsoft.OperationalInsights/workspaces" \
+      --target-resource $WORKSPACE_ID \
+      --enable true
+    
+    # 4. Apply Just-In-Time VM access
+    echo "Enabling Just-In-Time VM access..."
+    VM_LIST=$(az vm list --query "[].id" -o tsv)
+    
+    for VM in $VM_LIST
+    do
+      echo "Enabling JIT for VM: $VM"
+      az security jit-policy create \
+        --resource-group $(echo $VM | cut -d'/' -f5) \
+        --location $(az vm show --ids $VM --query "location" -o tsv) \
+        --vm-id $VM \
+        --kind "Basic" \
+        --ports '[{"number": 22, "protocol": "*", "allowedSourceAddressPrefix": "*", "maxRequestAccessDuration": "PT3H"}, 
+                  {"number": 3389, "protocol": "*", "allowedSourceAddressPrefix": "*", "maxRequestAccessDuration": "PT3H"}]'
+    done
+    
+    # 5. Remediate common NSG recommendations
+    echo "Configuring NSG rules according to security best practices..."
+    NSG_LIST=$(az network nsg list --query "[].id" -o tsv)
+    
+    for NSG in $NSG_LIST
+    do
+      # Restrict RDP access
+      az network nsg rule create \
+        --resource-group $(echo $NSG | cut -d'/' -f5) \
+        --nsg-name $(echo $NSG | cut -d'/' -f9) \
+        --name "Restrict_RDP" \
+        --priority 100 \
+        --source-address-prefixes "YOUR_TRUSTED_IP_RANGE" \
+        --destination-port-ranges 3389 \
+        --access "Allow" \
+        --protocol "*" \
+        --description "Restrict RDP access to trusted IP ranges"
+        
+      # Block inbound SSH from internet
+      az network nsg rule create \
+        --resource-group $(echo $NSG | cut -d'/' -f5) \
+        --nsg-name $(echo $NSG | cut -d'/' -f9) \
+        --name "Block_SSH" \
+        --priority 101 \
+        --source-address-prefixes "Internet" \
+        --destination-port-ranges 22 \
+        --access "Deny" \
+        --protocol "*" \
+        --description "Block SSH from internet"
+    done
+    
+    # 6. Enable diagnostic settings for all Key Vaults
+    echo "Enabling Key Vault diagnostics..."
+    KV_LIST=$(az keyvault list --query "[].id" -o tsv)
+    
+    for KV in $KV_LIST
+    do
+      az monitor diagnostic-settings create \
+        --resource $KV \
+        --name "KeyVaultDiagnostics" \
+        --workspace $WORKSPACE_ID \
+        --logs '[{"category": "AuditEvent", "enabled": true, "retentionPolicy": {"enabled": false, "days": 0}}]' \
+        --metrics '[{"category": "AllMetrics", "enabled": true, "retentionPolicy": {"enabled": false, "days": 0}}]'
+    done
+    
+    # 7. Configure storage account security
+    echo "Securing storage accounts..."
+    STORAGE_LIST=$(az storage account list --query "[].id" -o tsv)
+    
+    for STORAGE in $STORAGE_LIST
+    do
+      # Enable secure transfer
+      az storage account update \
+        --ids $STORAGE \
+        --https-only true
+        
+      # Enable advanced threat protection
+      az storage account update \
+        --ids $STORAGE \
+        --enable-advanced-threat-protection true
+        
+      # Set minimum TLS version
+      az storage account update \
+        --ids $STORAGE \
+        --min-tls-version TLS1_2
+    done
+    
+    echo "Security hardening complete!"
+    </code>
+        <p>This script implements several critical security controls:</p>
+        <ul>
+          <li>Enables Azure Defender (now Microsoft Defender for Cloud) for comprehensive threat protection</li>
+          <li>Configures automatic deployment of monitoring agents</li>
+          <li>Sets up continuous export of security alerts and recommendations for analysis</li>
+          <li>Implements Just-In-Time VM access to reduce attack surface</li>
+          <li>Applies network security group best practices</li>
+          <li>Enables comprehensive logging for Key Vaults</li>
+          <li>Secures storage accounts with encryption, TLS requirements, and threat protection</li>
+        </ul>
+        <p class="warning">Important: This script should be customized for your environment. Replace placeholder values like "YOUR_TRUSTED_IP_RANGE" with actual values, and test in a non-production environment first.</p>
+      </div>
+    </section>
+
     
     <footer>
       <div class="container">
